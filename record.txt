@@ -1,0 +1,33 @@
+1.安装依赖包（react..）
+
+2.创建模板文件
+
+3.js入口文件
+
+4.开始webpack配置文件
+
+    Loader
+        babel: stage-0
+        https://www.cnblogs.com/chris-oil/p/5717544.html
+
+    plugins
+        html-webpack-plugin
+        https://www.cnblogs.com/wonyun/p/6030090.html
+
+        clean-webpack-plugin
+        http://blog.csdn.net/supming1/article/details/52558523
+
+        copy-webpack-plugin
+        https://www.npmjs.com/package/copy-webpack-plugin
+
+    webpack——devtool里的7种SourceMap模式
+
+5.优化配置文件
+
+    提取第三方库
+    https://www.jianshu.com/p/a64735eb0e2b      CommonsChunkPlugin
+    https://www.jianshu.com/p/a5b3c2284bb6  进阶优化
+
+
+webpack 3.0中文文档
+http://www.css88.com/doc/webpack/plugins/dll-plugin/
