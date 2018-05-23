@@ -89,7 +89,7 @@ module.exports = {
         new CleanWebpackPlugin(
             ['dist'],
             {
-                // "root":"[]",     // 一个根的绝对路径.
+                // "root":"[]",     // 一个根的绝对路径 不设置将默认为当前路径 不可删除上级目录的文件
                 "verbose": true,    // 将log写到 console.
                 "dry": false,   // 不要删除任何东西，主要用于测试.
                 "exclude": ["manifest.json","vendors.js"] //排除不删除的目录

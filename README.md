@@ -11,6 +11,9 @@ npm run json    //分离公用的第三方库
     若需要添加新的请修改目录下webpack.dll.config.js
 
 npm start       //运行项目
-    项目默认运行在http://localhost:8000
+    项目默认运行在http://localhost:8000 请手动打开访问
     如需修改请修改webpack.config.js 下的devServer的port
     其中proxy为设置本地代理
+
+npm run build   //打包文件 输出目录在当前目录下的dist目录  用于生产环境
+                //使用的webpack配置文件为webpack.configP.js

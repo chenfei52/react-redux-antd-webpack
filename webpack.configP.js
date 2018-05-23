@@ -13,6 +13,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     // devtool: 'source-map',
     entry: ['babel-polyfill', './src/index.js'],
+            //可以不使用babel-polyfill 而使用Polyfill.io  网站：https://c7sky.com/polyfill-io.html
     output: {
         path: path.join(__dirname, '/dist'),
         // publicPath: '/app/', //配置该属性后页面加载的资源打包后路径都将加上该路径
