@@ -115,6 +115,11 @@ module.exports = {
         }),
         new webpack.HotModuleReplacementPlugin()
     ],
+    externals:{
+        'react': 'React',
+        'react-dom': 'ReactDOM',
+        "antd": 'antd'
+    },
     resolve: {
         extensions: ['.js', '.jsx']
     }

@@ -8,6 +8,7 @@ const path = require('path');
 const HtmlwebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; //打包结果分析插件
 
 
 module.exports = {
@@ -28,7 +29,7 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         presets: ['react', 'env', 'stage-0'],
-                        plugins: [["import", {libraryName: "antd", style: true}]]  //antd的按需加载
+                        // plugins: [["import", {libraryName: "antd", style: true}]]  //antd的按需加载,antd不用cdn加速的情况下
                     }
                 }
             },
@@ -75,6 +76,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new BundleAnalyzerPlugin(),
         new HtmlwebpackPlugin({
             template: './src/index.html',
             title: 'webpack demo',
@@ -109,6 +111,11 @@ module.exports = {
             manifest: require('./dist/manifest.json')
         }),
     ],
+    externals:{
+        'react': 'React',
+        'react-dom': 'ReactDOM',
+        "antd": 'antd'
+    },
     resolve: {
         extensions: ['.js', '.jsx']
     }

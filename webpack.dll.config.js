@@ -8,8 +8,6 @@ const path = require('path');
 module.exports = {
     entry: {
         vendors: [
-            'react',
-            'react-dom',
             'react-redux',
             'react-router',
             'react-router-dom',

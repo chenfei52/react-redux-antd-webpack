@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "babel-plugin-import": "^1.7.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
@@ -26,13 +27,15 @@
     "style-loader": "^0.20.1",
     "url-loader": "^0.6.2",
     "webpack": "^4.4.1",
+    "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^2.0.13",
     "webpack-dev-server": "^3.1.1"
   },
   "scripts": {
     "json": "webpack --config webpack.dll.config.js -p",
     "start": "node_modules/.bin/webpack-dev-server --mode development",
-    "build": "webpack --config webpack.configP.js --mode production"
+    "build": "webpack --config webpack.configP.js --mode production",
+    "analyz": "NODE_ENV=production npm_config_report=true npm run build"
   },
   "author": "chenfei",
   "license": "ISC"

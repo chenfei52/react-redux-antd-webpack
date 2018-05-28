@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import {HashRouter, Route, IndexRoute} from 'react-router-dom';
+import { HashRouter, Route, IndexRoute } from 'react-router-dom';
+import { Button } from "antd";
 
 import initRedux from './../redux/initRedux';
 import './index.scss';
@@ -21,7 +22,7 @@ export default class Root extends React.Component {
                 <HashRouter>
                     <div>
                         <div>
-                            <h1>Hello</h1>
+                            <h1><Button type="primary">Hello</Button></h1>
                         </div>
                         {
                             <div>
