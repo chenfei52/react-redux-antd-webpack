@@ -8,7 +8,7 @@ const path = require('path');
 const HtmlwebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
+const ExtractTextPlugin = require("extract-text-webpack-plugin"); //抽离CSS
 
 module.exports = {
     devtool: 'source-map',
@@ -49,17 +49,41 @@ module.exports = {
             {
                 test: /\.(scss$|css$)/,
                 exclude: /node_modules/,
-                use: ['style-loader','css-loader','sass-loader'] ,
-                //loader:'style-loader!css-loader!sass-loader' ,
+                use: ExtractTextPlugin.extract({
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: true, //开启CSS Modules
+                                importLoaders: 2 //作用是用于配置css-loader作用于 @import 的资源之前需要经过其他loader的个数
+                            }
+                        },
+                        {
+                            //自动补全css前缀 需要在package.json 中配置browserslist以决定兼容的浏览器
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: [
+                                    require("autoprefixer")()
+                                ]
+                            }
+                        },
+                        'sass-loader'
+                    ],
+                    fallback: 'style-loader'
+                })
             },
             {
                 test: /\.less$/,
-                use: ['style-loader','css-loader',{
-                    loader: 'less-loader',
-                    options: {
-                        javascriptEnabled: true
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            javascriptEnabled: true
+                        }
                     }
-                }],
+                ],
             },
             {
                 test:/\.(woff|svg|eot|ttf)$/,
@@ -80,6 +104,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new ExtractTextPlugin('style.css'),
         new HtmlwebpackPlugin({
             template: './src/index.html',
             title: 'webpack demo',
@@ -97,10 +122,10 @@ module.exports = {
         ),
         new CopyWebpackPlugin(
             [
-                // {
-                //     from:'./src/common/jquery/',
-                //     to:'common/jquery/'
-                // }
+                {
+                    from:'./src/public/',
+                    to:'public/' //存放静态资源
+                }
             ],
             {
                 context:'', //公共路径

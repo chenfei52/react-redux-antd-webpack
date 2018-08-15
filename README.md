@@ -1,5 +1,6 @@
 本项目是个人用于快速搭建react项目使用
 默认使用react + react-router + redux
+开启了CSS Modules 以及CSS前缀自动补全
 antd配置了但没有分离到公用包
 
 下载后运行步骤：

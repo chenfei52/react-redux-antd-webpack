@@ -5,6 +5,7 @@ import { Button } from "antd";
 
 import initRedux from './../redux/initRedux';
 import './index.scss';
+import style from  './index.css';
 
 const store = initRedux();
 //监听state变化

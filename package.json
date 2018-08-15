@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "babel-plugin-import": "^1.7.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
@@ -12,8 +11,10 @@
     "redux": "^3.7.2"
   },
   "devDependencies": {
+    "autoprefixer": "^9.1.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-plugin-import": "^1.7.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
@@ -21,8 +22,12 @@
     "clean-webpack-plugin": "^0.1.18",
     "copy-webpack-plugin": "^4.3.1",
     "css-loader": "^0.28.9",
-    "html-webpack-plugin": "^3.1.0",
-    "node-sass": "^4.7.2",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.0.4",
+    "less-loader": "^4.1.0",
+    "node-sass": "^4.9.3",
+    "postcss-loader": "^3.0.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.1",
     "url-loader": "^0.6.2",
@@ -37,6 +42,14 @@
     "build": "webpack --config webpack.configP.js --mode production",
     "analyz": "NODE_ENV=production npm_config_report=true npm run build"
   },
+  "browserslist": [
+    "defaults",
+    "not ie < 8",
+    "last 5 versions",
+    "> 0.01%",
+    "iOS 7",
+    "last 3 iOS versions"
+  ],
   "author": "chenfei",
   "license": "ISC"
 }
