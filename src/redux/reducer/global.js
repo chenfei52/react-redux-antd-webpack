@@ -1,6 +1,6 @@
 export function global( initState = {}, action ){
     switch (action.type){
-        case 'GLOBAL_DATA':
+        case 'USERINFO':
             return Object.assign({}, initState, action.data);
         default:
             return initState;

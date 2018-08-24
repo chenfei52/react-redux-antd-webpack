@@ -1,0 +1,9 @@
+@import './../../style/varible.scss';
+.header{
+    position: fixed;
+    width: 100%;
+    height: $header_height;
+    top: 0;
+    left: 0;
+    background: lightblue;
+}

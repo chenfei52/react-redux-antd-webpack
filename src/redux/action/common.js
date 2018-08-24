@@ -1,6 +1,6 @@
-export function globalAction(data){
+export function userInfo(data){
     return {
-        type: 'GLOBAL_DATA',
+        type: 'USERINFO',
         data: data
     }
 }

@@ -2,10 +2,9 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, IndexRoute } from 'react-router-dom';
 import { Button } from "antd";
-
+import { Header } from './component';
 import initRedux from './../redux/initRedux';
-import './index.scss';
-import style from  './index.css';
+import './../style/style.scss';
 
 const store = initRedux();
 //监听state变化
@@ -23,7 +22,7 @@ export default class Root extends React.Component {
                 <HashRouter>
                     <div>
                         <div>
-                            <h1><Button type="primary">Hello</Button></h1>
+                            <Header/>
                         </div>
                         {
                             <div>
