@@ -98,7 +98,7 @@ module.exports = {
     },
     plugins: [
         // new BundleAnalyzerPlugin(),
-        new ExtractTextPlugin('style.css'),
+        new ExtractTextPlugin('style[chunkhash:6].css'),
         new HtmlwebpackPlugin({
             template: './src/index.html',
             title: 'webpack demo',
