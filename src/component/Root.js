@@ -3,14 +3,7 @@ import { Provider } from 'react-redux';
 import { HashRouter, Route, IndexRoute } from 'react-router-dom';
 import { Button } from "antd";
 import { Header } from './component';
-import initRedux from './../redux/initRedux';
 import './../style/style.scss';
-
-const store = initRedux();
-//监听state变化
-store.subscribe(()=>
-    console.log(store.getState())
-);
 
 export default class Root extends React.Component {
     constructor(props) {
@@ -18,7 +11,7 @@ export default class Root extends React.Component {
     }
     render (){
         return (
-            <Provider store={ store } >
+            <Provider store={ this.props.store } >
                 <HashRouter>
                     <div>
                         <div>

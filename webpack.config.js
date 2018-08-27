@@ -41,7 +41,8 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['react', 'env', 'stage-0']
+                        presets: ['react', 'env', 'stage-0'],
+                        plugins: ['transform-decorators-legacy' ]  //支持@修饰符
                     }
                 }
             },

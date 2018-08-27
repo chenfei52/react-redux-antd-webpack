@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import style from './index.scss'
 
 export default class Header extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
     }
     render(){
         return (
