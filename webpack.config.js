@@ -49,7 +49,10 @@ module.exports = {
             //一般需要引入css-loader和style-loader，其中css-loader用于解析，而style-loader则将解析后的样式嵌入js代码
             {
                 test: /\.(scss$|css$)/,
-                exclude: /node_modules/,
+                exclude: [
+                    /(node_modules)/,
+                    path.join(__dirname, 'src/style/static')
+                ],
                 use: ExtractTextPlugin.extract({
                     use: [
                         {
@@ -74,17 +77,26 @@ module.exports = {
                 })
             },
             {
-                test: /\.less$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    {
-                        loader: 'less-loader',
-                        options: {
-                            javascriptEnabled: true
-                        }
-                    }
+                test: /\.(scss$|css$)/,
+                include: [
+                    path.join(__dirname, 'src/style/static')
                 ],
+                use: ExtractTextPlugin.extract({
+                    use: [
+                        {loader: 'css-loader'},
+                        {
+                            //自动补全css前缀 需要在package.json 中配置browserslist以决定兼容的浏览器
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: [
+                                    require("autoprefixer")()
+                                ]
+                            }
+                        },
+                        'sass-loader'
+                    ],
+                    fallback: 'style-loader'
+                })
             },
             {
                 test:/\.(woff|svg|eot|ttf)$/,
@@ -115,7 +127,7 @@ module.exports = {
         new CleanWebpackPlugin(
             ['dist'],
             {
-                // "root":"[]",     // 一个根的绝对路径 不设置将默认为当前路径 不可删除上级目录的文件
+                // "root":path.join(__dirname, '..'),     // 一个根的绝对路径 不设置将默认为当前路径 不可删除上级目录的文件
                 "verbose": true,    // 将log写到 console.
                 "dry": false,   // 不要删除任何东西，主要用于测试.
                 "exclude": ["manifest.json","vendors.js"] //排除不删除的目录
