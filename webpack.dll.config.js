@@ -4,6 +4,7 @@
 
 const webpack = require('webpack');
 const path = require('path');
+const paths = require('./config/paths');
 
 module.exports = {
     entry: {
@@ -17,14 +18,14 @@ module.exports = {
 
     output: {
         filename: '[name].js',
-        path: __dirname + '/dist',
+        path: __dirname + paths.vendorPath,
         library: '[name]'
     },
 
     plugins: [
         new webpack.DllPlugin({
-            path: path.join(__dirname + '/dist', 'manifest.json'),    //本文件用于生成该文件
+            path: path.join(__dirname + paths.vendorPath, 'manifest.json'),
             name: '[name]'
-        }),
-    ],
+        })
+    ]
 };
