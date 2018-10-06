@@ -3,15 +3,59 @@
 基于webpack4 使用 react + react-router + redux快速搭建react项目
 
 ### 基本介绍
-##### 1.项目启动流程
+
+##### 项目启动流程
 >* npm install 下载项目所需依赖包
 >* npm run json 生成vendor.js 第三方包公用js
->* npm start || npm run start 启动项目
+>* npm start || npm run start 启动项目 启动成功后可在浏览器输入 localhost:3000访问
 >* npm run build 构建项目
+
+##### 配置文件
+根目录下三个webpack配置文件
+>* webpack.dll.config.js 用于分离第三方js
+>* webpack.config.js 用于开发环境
+>* webpack.configP.js 用于生产环境打包
+
+##### 目录
+src为前端代码，其下的component存放组件，public下的所有文件在打包时都将拷贝到打包路径下同名文件夹中
+
+
+webpack.dll.config.js 中以下代码配置分离打包指定的js
+```javascript
+entry: {
+        vendors: [
+            'react-redux',
+            'react-router',
+            'react-router-dom',
+            'redux'
+        ]
+    }
+```
+
+##### 项目基本配置
+在开发环境配置文件中有以下代码
+```javascript
+devServer: {
+        contentBase: path.join(__dirname, paths.output),
+        port: 3000, //指定本地启用的端口
+        host: 'localhost',
+        inline:true,
+        hot:true,
+        historyApiFallback: true,  //react 非hash路由时404解决配置 本地开发路由请求指向index.html
+        proxy: {    //可配置多个
+            '/url': { //有该前缀的api代理设置为target IP
+                 target: 'http://0.0.0.0:80',
+                 secure: false
+                 changeOrigin: true,  //设置跨域
+            }
+        }
+    },
+```
+
 
 ### webpack配置介绍
 
-##### 1.js加载器
+##### 1.antd开启按需加载 在config目录下modules.js中修改如下代码
 ```javascript
 {
     test: /\.js$/,
@@ -20,8 +64,7 @@
         loader: 'babel-loader',
         options: {
             presets: ['react', 'env', 'stage-0'],
-            plugins: ['transform-decorators-legacy' ] //支持@修饰符，数组配置功能
-            // plugins: [["import", {libraryName: "antd", style: true}]]  //antd的按需加载,antd不用cdn，且不分离到公用包的情况下启用
+            plugins: ['transform-decorators-legacy' , ["import", {libraryName: "antd", style: true}]]
         }
     }
 }
@@ -29,21 +72,3 @@
 以上代码首先test正则匹配js文件以按照配置处理js文件
 exclude：排除目录下的目标js
 presets 中的 state-0 用于引进许多预案，可修改为按需引入
-
-
-
-下载后运行步骤：
-npm install     //下载包
-
-npm run json    //分离公用的第三方库
-                //生成后下次可不必再执行
-                //第三方库变动请重新执行
-    若需要添加新的请修改目录下webpack.dll.config.js
-
-npm start       //运行项目
-    项目默认运行在http://localhost:8000 请手动打开访问
-    如需修改请修改webpack.config.js 下的devServer的port
-    其中proxy为设置本地代理
-
-npm run build   //打包文件 输出目录在当前目录下的dist目录  用于生产环境
-                //使用的webpack配置文件为webpack.configP.js

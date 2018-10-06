@@ -9,7 +9,7 @@ const HtmlwebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const ExtractTextPlugin = require("extract-text-webpack-plugin"); //抽离CSS
+const ExtractTextPlugin = require("extract-text-webpack-plugin"); //抽离CSS,css单独打包
 
 var plugins = [
     // new BundleAnalyzerPlugin(),
