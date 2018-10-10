@@ -44,7 +44,7 @@ var plugins = [
         }
     ),
     new webpack.DllReferencePlugin({
-        context: __dirname,
+        context: path.join(__dirname , './../'),
         manifest: require( path.join('./../' + paths.vendorPath, 'manifest.json') )
     }),
 ];

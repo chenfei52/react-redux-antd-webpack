@@ -93,6 +93,33 @@ new ExtractTextPlugin({
         allChunks: true  // 动态加载需要配置
     }),
 ```
+若需要将css打入js 则将config目录下modules.js 中css/scss/less等文件的配置改成 
+```javascript
+        //一般需要引入css-loader和style-loader，其中css-loader用于解析，而style-loader则将解析后的样式嵌入js代码
+        {
+            test: /\.(scss$|css$)/,
+            exclude: /node_modules/,
+            use: ['style-loader','css-loader','sass-loader'] ,
+            //loader:'style-loader!css-loader!sass-loader' ,
+        },
+        {
+            test: /\.less$/,
+            use: ['style-loader','css-loader',{
+                loader: 'less-loader',
+                options: {
+                    javascriptEnabled: true
+                }
+            }],
+        }
+```
+以及删除config目录下plugins.js以下代码
+```javascript
+new ExtractTextPlugin({
+        filename: '[name].[hash:6].css',
+        allChunks: true  // 动态加载需要配置
+    })
+```
+同时注意页面引用css的方式
 
 ##### 4.按需加载js
 默认开启了根据路由来按需加载各个js，项目封装了一个方法，详细使用请看common目录下的Loadable。同时建议所有的组件都在src目录下的component.js中导入再导出

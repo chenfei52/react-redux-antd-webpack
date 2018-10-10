@@ -10,7 +10,7 @@ const plugins = require('./config/plugins');
 const externals = require('./config/externals');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-// plugins.push(new BundleAnalyzerPlugin());
+plugins.push(new BundleAnalyzerPlugin());
 
 module.exports = {
     // devtool: 'source-map',

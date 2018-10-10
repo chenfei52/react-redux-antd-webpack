@@ -5,6 +5,9 @@ import Loading from './common/Loading';
 
 export Header from './Header';
 
+// export Router1 from './Router1';
+// export Router2 from './Router2';
+
 export const Router1 = Loadable({
     loader: () => import('./Router1'),
     loading: Loading
