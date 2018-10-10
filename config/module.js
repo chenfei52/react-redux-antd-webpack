@@ -32,6 +32,7 @@ var modules = {
                     {
                         loader: 'css-loader',
                         options: {
+                            sourceMap: true,
                             modules: true, //开启CSS Modules
                             importLoaders: 2 //作用是用于配置css-loader作用于 @import 的资源之前需要经过其他loader的个数
                         }
@@ -40,6 +41,7 @@ var modules = {
                         //自动补全css前缀 需要在package.json 中配置browserslist以决定兼容的浏览器
                         loader: 'postcss-loader',
                         options: {
+                            sourceMap: true,
                             plugins: [
                                 require("autoprefixer")()
                             ]

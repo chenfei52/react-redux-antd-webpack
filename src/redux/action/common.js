@@ -1,6 +1,8 @@
-export function userInfo(data){
-    return {
-        type: 'USERINFO',
-        data: data
+export const actions = {
+    userInfo(data){
+        return {
+            type: 'USERINFO',
+            data: data
+        }
     }
-}
+};

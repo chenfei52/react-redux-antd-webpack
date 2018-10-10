@@ -17,7 +17,8 @@ module.exports = {
     output: {
         path: __dirname + paths.output,
         publicPath: paths.publicPath, //配置该属性后所有用相对路径加载的资源路径都将加上该路径
-        filename: 'build.js'
+        filename: 'build.[hash:6].js',
+        chunkFilename: '[name].[hash:6].js',
     },
     devServer: {
         contentBase: path.join(__dirname, paths.output),

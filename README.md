@@ -72,3 +72,29 @@ devServer: {
 以上代码首先test正则匹配js文件以按照配置处理js文件
 exclude：排除目录下的目标js
 presets 中的 state-0 用于引进许多预案，可修改为按需引入
+
+##### 2.css Modules
+```javascript
+{
+    loader: 'css-loader',
+    options: {
+        modules: false, //开启CSS Modules
+        importLoaders: 2 //作用是用于配置css-loader作用于 @import 的资源之前需要经过其他loader的个数
+    }
+}
+```
+通过修改config目录下的module.js中的上述代码开启或关闭CSS Modules 关闭时注意修改项目中的样式引用
+
+##### 3.css 单独抽离文件
+生成文件名在 config目录下plugins.js中修改以下代码
+```javascript
+new ExtractTextPlugin({
+        filename: '[name].[hash:6].css',
+        allChunks: true  // 动态加载需要配置
+    }),
+```
+
+##### 4.按需加载js
+默认开启了根据路由来按需加载各个js，项目封装了一个方法，详细使用请看common目录下的Loadable。同时建议所有的组件都在src目录下的component.js中导入再导出
+。若不想使用按需加载则正常引入组件即可。common目录下的Loadable为按需加载实现的高阶组件，Loading为
+加载组件可自行修改。
