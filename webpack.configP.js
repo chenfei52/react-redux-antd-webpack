@@ -15,6 +15,30 @@ plugins.push(new BundleAnalyzerPlugin());
 module.exports = {
     // devtool: 'source-map',
     entry: ['babel-polyfill', './src/index.js'],
+    optimization: { //懒加载防止多次打包同一个模块
+        //https://www.jianshu.com/p/3066d96aec8b
+        splitChunks: {
+            chunks: 'async',
+            minSize: 30000,
+            maxSize: 0,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            automaticNameDelimiter: '~',
+            name: true,
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
+                }
+            }
+        }
+    },
     output: {
         path: path.join(__dirname, paths.output),
         publicPath: paths.publicPath, //配置该属性后页面加载的资源打包后路径都将加上该路径
