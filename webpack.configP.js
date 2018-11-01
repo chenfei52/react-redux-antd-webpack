@@ -11,6 +11,11 @@ const externals = require('./config/externals');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 plugins.push(new BundleAnalyzerPlugin());
+plugins.push(new webpack.DefinePlugin({
+    'process.env': {
+        NODE_ENV: "production"
+    }
+}));
 
 module.exports = {
     // devtool: 'source-map',
