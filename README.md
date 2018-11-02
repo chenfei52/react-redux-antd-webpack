@@ -88,12 +88,13 @@ presets 中的 state-0 用于引进许多预案，可修改为按需引入
 ##### 3.css 单独抽离文件
 生成文件名在 config目录下plugins.js中修改以下代码
 ```javascript
-new ExtractTextPlugin({
-        filename: '[name].[hash:6].css',
+    new MiniCssExtractPlugin({
+        filename: 'css/[name].[hash:6].css',
+        chunkFilename: 'css/[name].[hash:6].css',
         allChunks: true  // 动态加载需要配置
     }),
 ```
-若需要将css打入js 则将config目录下modules.js 中css/scss/less等文件的配置改成 
+若需要将css打包入js 则将config目录下modules.js 中css/scss/less等文件的配置改成 
 ```javascript
         //一般需要引入css-loader和style-loader，其中css-loader用于解析，而style-loader则将解析后的样式嵌入js代码
         {
@@ -114,10 +115,11 @@ new ExtractTextPlugin({
 ```
 以及删除config目录下plugins.js以下代码
 ```javascript
-new ExtractTextPlugin({
-        filename: '[name].[hash:6].css',
+    new MiniCssExtractPlugin({
+        filename: 'css/[name].[hash:6].css',
+        chunkFilename: 'css/[name].[hash:6].css',
         allChunks: true  // 动态加载需要配置
-    })
+    }),
 ```
 同时注意页面引用css的方式
 

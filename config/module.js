@@ -4,9 +4,9 @@
 const path = require('path');
 const paths = require('./paths');
 
-const ExtractTextPlugin = require("extract-text-webpack-plugin"); //抽离CSS
+const MiniCssExtractPlugin = require("mini-css-extract-plugin"); //抽离CSS
 
-var modules = {
+let modules = {
     rules : [
         {
             test: /\.js$/,
@@ -20,59 +20,56 @@ var modules = {
                 }
             }
         },
+
         //一般需要引入css-loader和style-loader，其中css-loader用于解析，而style-loader则将解析后的样式嵌入js代码
         {
             test: /\.(scss$|css$)/,
             exclude: [
-                /(node_modules)/,
+                // /(node_modules)/,
                 path.join(__dirname, 'src/style/static')
             ],
-            use: ExtractTextPlugin.extract({
-                use: [
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true,
-                            modules: true, //开启CSS Modules
-                            importLoaders: 2 //作用是用于配置css-loader作用于 @import 的资源之前需要经过其他loader的个数
-                        }
-                    },
-                    {
-                        //自动补全css前缀 需要在package.json 中配置browserslist以决定兼容的浏览器
-                        loader: 'postcss-loader',
-                        options: {
-                            sourceMap: true,
-                            plugins: [
-                                require("autoprefixer")()
-                            ]
-                        }
-                    },
-                    'sass-loader'
-                ],
-                fallback: 'style-loader'
-            })
+            use: [
+                MiniCssExtractPlugin.loader,
+                {
+                    loader: 'css-loader',
+                    options: {
+                        sourceMap: true,
+                        modules: false, //开启CSS Modules
+                        // importLoaders: 2 //作用是用于配置css-loader作用于 @import 的资源之前需要经过其他loader的个数
+                    }
+                },
+                {
+                    //自动补全css前缀 需要在package.json 中配置browserslist以决定兼容的浏览器
+                    loader: 'postcss-loader',
+                    options: {
+                        sourceMap: true,
+                        plugins: [
+                            require("autoprefixer")()
+                        ]
+                    }
+                },
+                'sass-loader'
+            ]
         },
         {
             test: /\.(scss$|css$)/,
             include: [
                 path.join(__dirname, 'src/style/static')
             ],
-            use: ExtractTextPlugin.extract({
-                use: [
-                    {loader: 'css-loader'},
-                    {
-                        //自动补全css前缀 需要在package.json 中配置browserslist以决定兼容的浏览器
-                        loader: 'postcss-loader',
-                        options: {
-                            plugins: [
-                                require("autoprefixer")()
-                            ]
-                        }
-                    },
-                    'sass-loader'
-                ],
-                fallback: 'style-loader'
-            })
+            use: [
+                MiniCssExtractPlugin.loader,
+                {loader: 'css-loader'},
+                {
+                    //自动补全css前缀 需要在package.json 中配置browserslist以决定兼容的浏览器
+                    loader: 'postcss-loader',
+                    options: {
+                        plugins: [
+                            require("autoprefixer")()
+                        ]
+                    }
+                },
+                'sass-loader'
+            ]
         },
         {
             test: /\.less$/,

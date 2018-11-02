@@ -25,11 +25,9 @@ module.exports = {
         splitChunks: {
             chunks: 'async',
             minSize: 30000,
-            maxSize: 0,
             minChunks: 1,
             maxAsyncRequests: 5,
             maxInitialRequests: 3,
-            automaticNameDelimiter: '~',
             name: true,
             cacheGroups: {
                 vendors: {
@@ -47,8 +45,8 @@ module.exports = {
     output: {
         path: path.join(__dirname, paths.output),
         publicPath: paths.publicPath, //配置该属性后页面加载的资源打包后路径都将加上该路径
-        filename: 'build.[hash:6].js',
-        chunkFilename: '[name].[hash:6].js',
+        filename: 'js/build.[hash:6].js',
+        chunkFilename: 'js/[name].[hash:6].js',
     },
     module: modules,
     plugins: plugins,
