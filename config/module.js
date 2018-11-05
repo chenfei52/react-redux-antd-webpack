@@ -29,7 +29,12 @@ let modules = {
                 path.join(__dirname, 'src/style/static')
             ],
             use: [
-                MiniCssExtractPlugin.loader,
+                {
+                    loader:MiniCssExtractPlugin.loader,
+                    options:{
+                        publicPath: './../'
+                    }
+                },
                 {
                     loader: 'css-loader',
                     options: {
@@ -57,7 +62,12 @@ let modules = {
                 path.join(__dirname, 'src/style/static')
             ],
             use: [
-                MiniCssExtractPlugin.loader,
+                {
+                    loader:MiniCssExtractPlugin.loader,
+                    options:{
+                        publicPath: './../'
+                    }
+                },
                 {loader: 'css-loader'},
                 {
                     //自动补全css前缀 需要在package.json 中配置browserslist以决定兼容的浏览器
