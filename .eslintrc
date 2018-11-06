@@ -1,6 +1,26 @@
 {
     "parser": "babel-eslint",
+    //rules中的值0、1、2分别表示不开启检查、警告、错误
     "rules": {
+        "no-console": 1
     },
-    "extends": "eslint:recommended"
+    //使用默认的规则
+    "extends":  [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    // 环境定义了预定义的全局变量。
+    "env": {
+        "browser": true,
+        "node": true,
+        "commonjs": true,
+        "amd": true,
+        "es6": true,
+        "mocha": true
+    },
+    //true允许被重写 false不允许
+    "globals": {
+//        "var1": true,
+//        "var2": false
+    }
 }

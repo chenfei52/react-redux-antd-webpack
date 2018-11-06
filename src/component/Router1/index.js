@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { actions } from './../../redux/action/common';
 import style from  './index.scss'
@@ -9,7 +10,7 @@ export default @connect(state=>{
     }
 }, dispatch=>{
     return {
-        userAction: ()=> { dispatch(actions.userInfo({name: "陈非"})) }
+        "userAction": ()=> { dispatch(actions.userInfo({name: "陈非"})) }
     }
 })
 class Router1 extends Component{
@@ -28,3 +29,6 @@ class Router1 extends Component{
         )
     }
 }
+Router1.propTypes = {
+    userAction: PropTypes.func
+};

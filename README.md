@@ -127,3 +127,19 @@ presets 中的 state-0 用于引进许多预案，可修改为按需引入
 默认开启了根据路由来按需加载各个js，项目封装了一个方法，详细使用请看common目录下的Loadable。同时建议所有的组件都在src目录下的component.js中导入再导出
 。若不想使用按需加载则正常引入组件即可。common目录下的Loadable为按需加载实现的高阶组件，Loading为
 加载组件可自行修改。
+
+##### 5.eslint
+使用了eslint来检查代码，配置文件为根目录下.eslintrc,如想关闭请屏蔽module.js中的以下代码块
+```javascript
+{
+    loader: "eslint-loader"
+}
+```
+若想要某个文件禁用eslint审查则在文件头部加入以下注释
+```javascript
+/* eslint-disable */
+```
+若想在某个文件中使用别处定义的全局变量 可在头部加 或者在.eslintrc配置文件中添加全局变量
+```javascript
+/* global var1, var2 */
+```

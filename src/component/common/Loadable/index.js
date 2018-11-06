@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 // 这个组件用于处理按照路由按需加载js 主要运用了import()按需加载
 import React, { Component } from 'react';
 import Loading from "../Loading";
@@ -8,9 +10,7 @@ class Package extends Component{
         Component: null
     };
     componentDidMount(){
-        console.log(this.props);
         this.props.loader && this.props.loader().then(({ default: Component })=>{
-            console.log(22222);
             this.setState({
                 Component
             })
@@ -19,9 +19,7 @@ class Package extends Component{
         });
     }
     render(){
-        console.log(this.props);
         const { Component } = this.state;
-        const { loading:Loading } = this.props;
         if(Component){
             return <Component />;
         }else{
