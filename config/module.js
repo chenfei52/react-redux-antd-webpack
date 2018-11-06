@@ -11,14 +11,19 @@ let modules = {
         {
             test: /\.js$/,
             exclude: /(node_modules|bower_components)/,
-            use: {
-                loader: 'babel-loader',
-                options: {
-                    presets: ['react', 'env', 'stage-0'],
-                    plugins: ['transform-decorators-legacy' ] //支持@修饰符
-                    // plugins: [["import", {libraryName: "antd", style: true}]]  //antd的按需加载,antd不用cdn加速的情况下
+            use: [
+                {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['react', 'env', 'stage-0'],
+                        plugins: ['transform-decorators-legacy'] //支持@修饰符
+                        // plugins: [["import", {libraryName: "antd", style: true}]]  //antd的按需加载,antd不用cdn加速的情况下
+                    }
+                },
+                {
+                    loader: "eslint-loader"
                 }
-            }
+            ]
         },
 
         //一般需要引入css-loader和style-loader，其中css-loader用于解析，而style-loader则将解析后的样式嵌入js代码
@@ -39,7 +44,7 @@ let modules = {
                     loader: 'css-loader',
                     options: {
                         sourceMap: true,
-                        modules: false, //开启CSS Modules
+                        modules: true, //开启CSS Modules
                         // importLoaders: 2 //作用是用于配置css-loader作用于 @import 的资源之前需要经过其他loader的个数
                     }
                 },

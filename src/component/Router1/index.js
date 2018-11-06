@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { actions } from './../../redux/action/common';
 import style from  './index.scss'
 
-@connect(state=>{
+export default @connect(state=>{
     return {
         userInfo: state.global.userInfo
     }
@@ -12,9 +12,10 @@ import style from  './index.scss'
         userAction: ()=> { dispatch(actions.userInfo({name: "陈非"})) }
     }
 })
-export default class Router1 extends Component{
+class Router1 extends Component{
     constructor(){
         super();
+        console.log(location);
     }
     componentDidMount(){
         this.props.userAction();
