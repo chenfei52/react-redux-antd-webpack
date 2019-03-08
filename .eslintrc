@@ -2,8 +2,14 @@
     "parser": "babel-eslint",
     //rules中的值0、1、2分别表示不开启检查、警告、错误
     "rules": {
-        "no-console": 1
+        "no-console": 1,
+        "react-hooks/rules-of-hooks": 2,
+        "react/no-unknown-property": 0, //防止使用未知的DOM属性
+        "react/prop-types": 0 //防止在React组件定义中丢失props验证
     },
+    "plugins": [
+        "react-hooks"
+    ],
     //使用默认的规则
     "extends":  [
         "eslint:recommended",

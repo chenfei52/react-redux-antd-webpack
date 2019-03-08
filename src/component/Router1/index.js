@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { actions } from './../../redux/action/common';
+import TimeClick from "./TimeClick";
 import style from  './index.scss'
 
 export default @connect(state=>{
@@ -18,6 +19,9 @@ class Router1 extends Component{
         super();
         console.log(location);
     }
+    propTypes = {
+        userAction: PropTypes.func
+    };
     componentDidMount(){
         this.props.userAction();
     }
@@ -25,10 +29,8 @@ class Router1 extends Component{
         return (
             <div className={ style.test }>
                 路由11
+                <TimeClick />
             </div>
         )
     }
 }
-Router1.propTypes = {
-    userAction: PropTypes.func
-};
