@@ -9,11 +9,8 @@ const paths = require('./config/paths');
 module.exports = {
     entry: {
         vendors: [
-            'react-redux',
-            'react-router',
             'react-router-dom',
-            'react-dom',
-            'redux'
+            'react-dom'
         ]
     },
 

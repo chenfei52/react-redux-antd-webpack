@@ -1,8 +1,8 @@
 /* eslint-disable */
 import React from 'react';
-import { Provider } from 'react-redux';
 import { HashRouter, Route } from 'react-router-dom';
 import { Header, Router1, Router2 } from './component';
+import { ContextProvider } from "@src/redux/reducer";
 import styles from './../style/style.scss';
 
 export default class Root extends React.Component {
@@ -11,7 +11,7 @@ export default class Root extends React.Component {
     }
     render (){
         return (
-            <Provider { ...this.props } >
+            <ContextProvider>
                 <HashRouter>
                     <div>
                         <Header/>
@@ -20,12 +20,13 @@ export default class Root extends React.Component {
                             <div className={ styles.content }>
                                 <Route path="/" exact component={ Router1 } />
                                 <Route path="/router1" component={ Router1 } />
-                                <Route path="/router2" component={ Router2 } />
+                                <Route path="/router2" exact component={ Router2 } />
+                                <Route path={ ["/router2/:id", "/router3/:id"] } component={ Router2 } />
                             </div>
                         }
                     </div>
                 </HashRouter>
-            </Provider>
+            </ContextProvider>
         )
     }
 }

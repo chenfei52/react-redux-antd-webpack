@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from "prop-types";
 
 export function ShowTimes(props){
     const [ minute, setMinute ] = useState(0);
@@ -15,9 +16,12 @@ export function ShowTimes(props){
         }
     }, []);
     return (
-        <p>你点击了按钮{ props.times }次,开始分数是{ minute },现在秒数是{ time }</p>
+        <p>你点击了按钮{ props.times }次<br/>现在时间是{ minute }分{ time }秒</p>
     )
 }
+ShowTimes.propTypes = {
+    times: PropTypes.string.isRequired
+};
 
 export default function TimeClick(){
     const [ count, setCount ] = useState(0);

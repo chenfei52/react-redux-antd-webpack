@@ -40,6 +40,9 @@ module.exports = {
     plugins: plugins,
     externals: externals,
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx'],
+        alias: {
+            "@src":path.resolve("src"),
+        }
     }
 };

@@ -1,15 +1,21 @@
-import React, { Component } from 'react';
-import style from './index.scss'
+import React, { useContext, useEffect } from 'react';
+import { globalContext } from "@src/redux/reducer";
+import style from './index.scss';
 
-export default class Router2 extends Component{
-    constructor(){
-        super();
-    }
-    render(){
-        return (
-            <div className={ style.class }>
-                路由2
-            </div>
-        )
-    }
+export default function Router2(){
+    const { state, dispatch } = useContext(globalContext);
+    useEffect(()=>{
+        dispatch({
+            type: "USERINFO",
+            data: {
+                name: "test"
+            }
+        });
+    }, []);
+    console.log(state);
+    return (
+        <div className={ style.class }>
+            路由2
+        </div>
+    )
 }
