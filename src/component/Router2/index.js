@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react';
+import { withRouter } from "react-router-dom";
 import { globalContext } from "@src/redux/reducer";
 import style from './index.scss';
 
-export default function Router2(){
+function Router2(){
     const { state, dispatch } = useContext(globalContext);
     useEffect(()=>{
         dispatch({
@@ -19,3 +20,4 @@ export default function Router2(){
         </div>
     )
 }
+export default withRouter(Router2);

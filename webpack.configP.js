@@ -18,7 +18,7 @@ plugins.push(new webpack.DefinePlugin({
 }));
 
 module.exports = {
-    // devtool: 'source-map',
+    devtool: 'source-map',
     entry: ['babel-polyfill', './src/index.js'],
     optimization: { //懒加载防止多次打包同一个模块
         //https://www.jianshu.com/p/3066d96aec8b
