@@ -5,9 +5,10 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import Root from './component/Root';
+import {ContextProvider} from "@src/redux/reducer";
 
 let container = document.getElementById('container');
-let node = <Root />;
+let node = <ContextProvider><Root /></ContextProvider>;
 
 
 
