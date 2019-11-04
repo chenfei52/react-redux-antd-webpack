@@ -5,7 +5,8 @@
         "no-console": 1,
         "react-hooks/rules-of-hooks": 2,
         "react/no-unknown-property": 0, //防止使用未知的DOM属性
-        "react/prop-types": 0 //防止在React组件定义中丢失props验证
+        "react/prop-types": 0, //防止在React组件定义中丢失props验证
+        "no-unused-vars": 1
     },
     "plugins": [
         "react-hooks"
@@ -31,7 +32,9 @@
     }
 }
 
-//rules
+
+
+//rules 常用
 
 //"quotes": [2, "single"], //单引号
 //"no-console": 0, //不禁用console

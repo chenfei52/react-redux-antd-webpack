@@ -13,8 +13,7 @@
 ##### 配置文件
 根目录下三个webpack配置文件
 >* webpack.dll.config.js 用于分离第三方js
->* webpack.config.js 用于开发环境
->* webpack.configP.js 用于生产环境打包
+>* webpack.config.js webpack配置文件
 
 ##### 目录
 src为前端代码，其下的component存放组件，public下的所有文件在打包时都将拷贝到打包路径下同名文件夹中
