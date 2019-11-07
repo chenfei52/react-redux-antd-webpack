@@ -1,6 +1,6 @@
 import React from 'react';
 import TimeClick from "./TimeClick";
-import style from  './index.scss'
+import style from  './index.scss';
 
 export default function Router1(){
     return (
