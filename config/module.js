@@ -6,6 +6,8 @@ const paths = require('./paths');
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin"); //抽离CSS
 
+let prod = process.env.NODE_ENV;
+
 let modules = {
     rules : [
         {
@@ -31,7 +33,12 @@ let modules = {
                 /(node_modules)/
             ],
             use: [
-                'style-loader',
+                (prod === 'production' ? {
+                    loader:MiniCssExtractPlugin.loader,
+                    options:{
+                        publicPath: './../'
+                    }
+                } : 'style-loader'),
                 {loader: 'css-loader'},
                 {
                     //自动补全css前缀 需要在package.json 中配置browserslist以决定兼容的浏览器
@@ -53,7 +60,12 @@ let modules = {
                 /(node_modules)/
             ],
             use: [
-                'style-loader',
+                (prod === 'production' ? {
+                    loader:MiniCssExtractPlugin.loader,
+                    options:{
+                        publicPath: './../'
+                    }
+                } : 'style-loader'),
                 {
                     loader: 'css-loader',
                     options: {
