@@ -1,10 +1,10 @@
 import React from 'react';
 import { withRouter } from "react-router-dom";
-import style from './index.scss';
+import './index.scss';
 
 function Router2(){
     return (
-        <div className={ style.class }>
+        <div className="red" >
             路由2
         </div>
     )

@@ -1,11 +1,14 @@
 import React from 'react';
 import TimeClick from "./TimeClick";
-import style from  './index.scss';
+import styles from './index.module.scss';
+
+console.log(styles);
 
 export default function Router1(){
     return (
-        <div className={ style.test }>
+        <div className={ styles.test }>
             路由11
+            <span className="blue">蓝色</span>
             <TimeClick />
         </div>
     )
