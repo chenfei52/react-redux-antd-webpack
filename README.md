@@ -70,64 +70,16 @@ devServer: {
 ```
 以上代码首先test正则匹配js文件以按照配置处理js文件
 exclude：排除目录下的目标js
-presets 中的 state-0 用于引进许多预案，可修改为按需引入
+presets 中的 state-0，可修改为按需引入
 
 ##### 2.css Modules
-```javascript
-{
-    loader: 'css-loader',
-    options: {
-        modules: false, //开启CSS Modules
-        importLoaders: 2 //作用是用于配置css-loader作用于 @import 的资源之前需要经过其他loader的个数
-    }
-}
-```
-通过修改config目录下的module.js中的上述代码开启或关闭CSS Modules 关闭时注意修改项目中的样式引用
+根据scss文件名称决定是否开启css module， 名称以 .module.scss结尾则开启
 
-##### 3.css 单独抽离文件
-生成文件名在 config目录下plugins.js中修改以下代码
-```javascript
-    new MiniCssExtractPlugin({
-        filename: 'css/[name].[hash:6].css',
-        chunkFilename: 'css/[name].[hash:6].css',
-        allChunks: true  // 动态加载需要配置
-    }),
-```
-若需要将css打包入js 则将config目录下modules.js 中css/scss/less等文件的配置改成 
-```javascript
-        //一般需要引入css-loader和style-loader，其中css-loader用于解析，而style-loader则将解析后的样式嵌入js代码
-        {
-            test: /\.(scss$|css$)/,
-            exclude: /node_modules/,
-            use: ['style-loader','css-loader','sass-loader'] ,
-            //loader:'style-loader!css-loader!sass-loader' ,
-        },
-        {
-            test: /\.less$/,
-            use: ['style-loader','css-loader',{
-                loader: 'less-loader',
-                options: {
-                    javascriptEnabled: true
-                }
-            }],
-        }
-```
-以及删除config目录下plugins.js以下代码
-```javascript
-    new MiniCssExtractPlugin({
-        filename: 'css/[name].[hash:6].css',
-        chunkFilename: 'css/[name].[hash:6].css',
-        allChunks: true  // 动态加载需要配置
-    }),
-```
-同时注意页面引用css的方式
+##### 3.按需加载js
+默认开启了根据路由来按需加载各个js，项目封装了一个方法，详细使用请看common目录下的Loadable。建议所有的组件都在src目录下的component.js中导入再导出
+。若不想使用按需加载则正常引入组件即可。common目录下的Loadable为按需加载实现的高阶组件，Loading为加载组件可自行修改。
 
-##### 4.按需加载js
-默认开启了根据路由来按需加载各个js，项目封装了一个方法，详细使用请看common目录下的Loadable。同时建议所有的组件都在src目录下的component.js中导入再导出
-。若不想使用按需加载则正常引入组件即可。common目录下的Loadable为按需加载实现的高阶组件，Loading为
-加载组件可自行修改。
-
-##### 5.eslint
+##### 4.eslint
 使用了eslint来检查代码，配置文件为根目录下.eslintrc,如想关闭请屏蔽module.js中的以下代码块
 ```javascript
 {
