@@ -3,12 +3,10 @@ import React, { useEffect, useContext, Suspense } from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import { Header, Loading, Router1, Router2 } from './component';
 import { globalContext } from "@src/redux/reducer";
-import useUserInfoApi from "@src/api/useUserInfoApi";
 import styles from './../style/style.scss';
 
 export default function Root() {
     const { state, dispatch } = useContext(globalContext);
-    const { userInfo, getUserInfo } = useUserInfoApi();
     useEffect(()=>{
         dispatch({
             type: "USERINFO",
