@@ -1,7 +1,7 @@
 /* eslint-disable */
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, Suspense } from 'react';
 import { HashRouter, Route } from 'react-router-dom';
-import { Header, Router1, Router2 } from './component';
+import { Header, Loading, Router1, Router2 } from './component';
 import { globalContext } from "@src/redux/reducer";
 import useUserInfoApi from "@src/api/useUserInfoApi";
 import styles from './../style/style.scss';
@@ -24,10 +24,12 @@ export default function Root() {
 
                 {
                     <div className={styles.content}>
-                        <Route path="/" exact component={Router1}/>
-                        <Route path="/router1" component={Router1}/>
-                        <Route path="/router2" exact component={Router2}/>
-                        <Route path={["/router2/:id", "/router3/:id"]} component={Router2}/>
+                        <Suspense fallback={ <Loading /> }>
+                            <Route path="/" exact component={Router1}/>
+                            <Route path="/router1" component={Router1}/>
+                            <Route path="/router2" exact component={Router2}/>
+                            <Route path={["/router2/:id", "/router3/:id"]} component={Router2}/>
+                        </Suspense>
                     </div>
                 }
             </div>

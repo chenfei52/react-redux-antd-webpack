@@ -2,17 +2,11 @@
 
 //组建用于集中导出自定义的所有组件 方便在别的组件中批量、多次调用
 
-import Loadable from './common/Loadable';
+import React, { lazy } from 'react';
 
 export Header from './Header';
-
-// export Router1 from './Router1';
-// export Router2 from './Router2';
+export Loading from './common/Loading';
 
 
-export const Router1 = Loadable({
-    loader: () => import('./Router1')
-});
-export const Router2 = Loadable({
-    loader: () => import('./Router2')
-});
+export const Router1 = lazy(() => import('./Router1'));
+export const Router2 = lazy(() => import('./Router2'));

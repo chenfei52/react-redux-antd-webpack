@@ -48,5 +48,19 @@ let plugins = [
         context: path.join(__dirname , './../'),
         manifest: require( path.join('./../' + paths.vendorPath, 'manifest.json') )
     }),
+    new webpack.DefinePlugin({
+        'process.env': {
+            //设置构建时的环境变量
+        }
+    })
 ];
+
+switch(process.env.NODE_ENV){
+    case 'production':
+        // plugins.push(new BundleAnalyzerPlugin()); //分析打包结果 配置只可在本地开发构建时打开
+        break;
+    default:
+        plugins.push(new webpack.HotModuleReplacementPlugin());
+}
+
 module.exports = plugins;
