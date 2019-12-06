@@ -14,7 +14,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 let devServer = {
     contentBase: path.join(__dirname, paths.output),
     port: 3000,
-    host: 'localhost',
+    host: 'localhost', //设置为0.0.0.0时表示用本机ip访问
     inline:true,
     hot:true,
     historyApiFallback: true,  //本地开发路由请求指向index.html
