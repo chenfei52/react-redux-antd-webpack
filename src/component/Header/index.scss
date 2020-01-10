@@ -1,9 +1,43 @@
 @import './../../style/varible.scss';
 .header{
     position: fixed;
-    width: 100%;
-    height: $header_height;
     top: 0;
     left: 0;
-    background: lightblue;
+    width: 100%;
+    height: 70px;
+    padding-left: $left_menu_width;
+    background: #FFF;
+    box-shadow: 0 0 3px #999;
+    z-index: 150;
+    &>*{
+        vertical-align: top;
+    }
+    .user{
+        float: right;
+        height: 70px;
+        line-height: 70px;
+        padding: 0 15px;
+        text-align: center;
+        &>span{
+            display: inline-block;
+            margin: 0 4px;
+            line-height: 70px;
+            font-size: 16px;
+        }
+        &>i{
+            width: 40px;
+            line-height: 70px;
+            font-size: 20px;
+            vertical-align: middle;
+            &.anticon-logout{
+                cursor: pointer;
+                &:hover{
+                    color: $theme_color;
+                }
+            }
+        }
+    }
+}
+.anticon svg{
+    display: inline-block!important;
 }

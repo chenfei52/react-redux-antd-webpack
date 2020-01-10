@@ -18,8 +18,8 @@ let modules = {
                     loader: 'babel-loader',
                     options: {
                         presets: ['react', 'env', 'stage-0'],
-                        plugins: ['transform-decorators-legacy'] //支持@修饰符
-                        // plugins: [["import", {libraryName: "antd", style: true}]]  //antd的按需加载,antd不用cdn加速的情况下
+                        // plugins: ['transform-decorators-legacy'] //支持@修饰符
+                        plugins: ['transform-decorators-legacy', ["import", {libraryName: "antd", style: true}]]  //antd的按需加载,antd不用cdn加速的情况下
                     }
                 },
                 {
@@ -81,6 +81,10 @@ let modules = {
             use: ['style-loader','css-loader',{
                 loader: 'less-loader',
                 options: {
+                    modifyVars: {
+                        'primary-color': '#009688',
+                        'link-color': '#009688',
+                    },
                     javascriptEnabled: true
                 }
             }],

@@ -53,7 +53,7 @@ export function formatTime (time, character, degree) {
         return result;
     }
     return result;
-};
+}
 
 /**
  * 获取url上面的参数

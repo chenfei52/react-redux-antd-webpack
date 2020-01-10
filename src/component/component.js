@@ -5,8 +5,8 @@
 import React, { lazy } from 'react';
 
 export Header from './Header';
+export LeftMenu from './LeftMenu';
 export Loading from './common/Loading';
 
 
-export const Router1 = lazy(() => import('./Router1'));
-export const Router2 = lazy(() => import('./Router2'));
+export const Login = lazy(() => import('./Login'));

@@ -1,15 +1,29 @@
-import React, { useContext } from 'react';
-import { Link } from "react-router-dom";
+import React, { useContext, useCallback } from 'react';
+import { withRouter } from 'react-router-dom';
 import { globalContext } from "@src/redux/reducer";
-import style from './index.scss'
+import { Icon } from 'antd';
+import './index.scss'
 
-export default function Header() {
-    const { state } = useContext(globalContext);
+function Header({ history }){
+    const { global={}, router={} } = useContext(globalContext);
+    const { userInfo } = global;
+    const loginOut = useCallback(()=>{
+        localStorage.removeItem("token");
+        history.push("/");
+    }, []);
     return (
-        <div className={style.header}>
-            这是头部, 用户名为{state.userInfo && state.userInfo.name}
-            <Link to="/router1">路由1</Link>
-            <Link to="/router2">路由2</Link>
+        <div className="header">
+            {
+                userInfo ?
+                    <div className="user">
+                        <Icon type="user" />
+                        <span>{ userInfo && userInfo.name }</span>
+                        <Icon title="退出" onClick={ loginOut } type="logout" />
+                    </div>
+                    : null
+            }
         </div>
     )
 }
+
+export default withRouter(Header)
