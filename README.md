@@ -65,6 +65,10 @@ src为前端代码，其下的component存放组件，public下的所有文件�
     loader: "eslint-loader"
 }
 ```
+单行屏蔽eslint检查
+```javascript
+ // eslint-disable-next-line
+```
 若想要某个文件禁用eslint审查则在文件头部加入以下注释
 ```javascript
 /* eslint-disable */
