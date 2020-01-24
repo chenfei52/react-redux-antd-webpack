@@ -11,7 +11,7 @@ import { message } from 'antd';
  *          headers: obj 自定义header头
  *          hideLoadingText: bool 是否隐藏加载提示
  *          loadingText: str 加载时的文字提示
- *          blobData: bool  返回是否为二进制数据
+ *          blobData: bool  返回是否为二进制数据 默认返回promise
  *          noAuth: bool   无用户验证头
  *        }
  * @param success   成功回调
@@ -66,7 +66,6 @@ export default function Req(options, success, error){
         if(res.status === 401 || res.status === 403){
             location.hash="/forbidden";
             message.warning("用户无权限!");
-            return {};
         }
         if(options.blobData){
             return res.blob();
