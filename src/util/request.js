@@ -1,5 +1,4 @@
 import { message } from 'antd';
-import { getCookie } from './util';
 
 /**
  * fetch发起请求
@@ -12,7 +11,6 @@ import { getCookie } from './util';
  *          headers: obj 自定义header头
  *          hideLoadingText: bool 是否隐藏加载提示
  *          loadingText: str 加载时的文字提示
- *          promise: bool  是否返回promise
  *          blobData: bool  返回是否为二进制数据
  *          noAuth: bool   无用户验证头
  *        }
@@ -24,7 +22,6 @@ export default function Req(options, success, error){
     let request = {
         method: options.type,
         headers: {}
-        // credentials: 'include'
     };
     if(options.headers){
         for(let key in options.headers){
@@ -57,7 +54,7 @@ export default function Req(options, success, error){
     if(!options.hideLoadingText)
         hide = message.loading(options.loadingText || "请求中...", 0);
 
-    const reqAction = Promise.race([
+    return Promise.race([
         fetch(url + params, request),
         new Promise((resolve, reject)=>{
             setTimeout(()=>{
@@ -74,38 +71,17 @@ export default function Req(options, success, error){
         if(options.blobData){
             return res.blob();
         }
-        return res.json();
-    });
-
-    //确认是否返回promise
-    try{
-        if(options.promise){
-            return reqAction.then((res)=>{
-                if(!res.Status){
-                    message.warning(res.Message || '请求出错!');
-                    return null;
-                }
-                return res;
-            }).catch((e)=>{
-                hide && hide();
-                return e;
-            });
+        if(!res.Status){
+            message.warning(res.Message || '调用接口出错!');
         }else{
-            reqAction.then((res)=>{
-                if(!res.Status && !options.blobData){
-                    message.warning(res.Message || '调用接口出错!');
-                }else{
-                    success(res);
-                }
-            }).catch((e)=>{
-                hide && hide();
-                if(error){
-                    error(e);
-                }
-                console.log('错误信息：',e);
-            });
+            success && success(res);
         }
-    }catch(error){
-        console.log(`错误信息：`, error);
-    }
+        return res.json();
+    }).catch((e)=>{
+        hide && hide();
+        if(error){
+            error && error(e);
+        }
+        console.log('错误信息：',e);
+    });
 }
