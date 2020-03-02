@@ -1,5 +1,4 @@
 import { message } from 'antd';
-import { getCookie } from './util';
 
 /**
  * fetch发起请求
@@ -74,10 +73,16 @@ export default function Req(options, success, error){
         if(!res.Status && !options.blobData){
             message.warning(res.Message || '调用接口出错!');
         }else{
-            success && typeof success === 'function' && success(res);
+            if(success && typeof success === 'function'){
+                success && success(e);
+            }
         }
         return res.json();
     }).catch(error=>{
+        hide && hide();
+        if(error && typeof error === 'function'){
+            error && error(e);
+        }
         console.log(error);
     });
 }
