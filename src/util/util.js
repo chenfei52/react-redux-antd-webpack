@@ -53,7 +53,7 @@ export function formatTime (time, character, degree) {
         return result;
     }
     return result;
-};
+}
 
 /**
  * 获取url上面的参数
@@ -112,4 +112,19 @@ export function IEVersion() {
     }else{
         return -1;//不是ie浏览器
     }
+}
+
+export function deepCopy(obj){
+    if(typeof obj !== 'object') console.log('请传入一个对象');
+
+    let res = null;
+    obj instanceof Array ? res = [] : res={};
+    for(let key in obj){
+        if(typeof obj[key] === 'object'){
+            res[key] = deepCopy(obj[key]);
+        }else{
+            res[key] = obj[key];
+        }
+    }
+    return res;
 }
