@@ -9,7 +9,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin"); //抽离CSS
 let prod = process.env.NODE_ENV;
 
 let modules = {
-    rules : [
+    rules: [
         {
             test: /\.js$/,
             exclude: /(node_modules|bower_components)/,
@@ -32,53 +32,19 @@ let modules = {
             exclude: [
                 /(node_modules)/
             ],
-            use: [
-                (prod === 'production' ? {
-                    loader:MiniCssExtractPlugin.loader,
-                    options:{
-                        publicPath: './../'
-                    }
-                } : 'style-loader'),
-                {loader: 'css-loader'},
-                {
-                    //自动补全css前缀 需要在package.json 中配置browserslist以决定兼容的浏览器
-                    loader: 'postcss-loader',
-                    options: {
-                        plugins: [
-                            require("autoprefixer")()
-                        ]
-                    }
-                },
-                'sass-loader'
-            ]
+            use: getScssModule(false)
         },
-
-        //一般需要引入css-loader和style-loader，其中css-loader用于解析，而style-loader则将解析后的样式嵌入js代码
+        //对于scss文件以module.scss结尾的开启CSSModule
         {
             test: /\.module\.(scss$|css$)/,
             exclude: [
                 /(node_modules)/
             ],
-            use: [
-                (prod === 'production' ? {
-                    loader:MiniCssExtractPlugin.loader,
-                    options:{
-                        publicPath: './../'
-                    }
-                } : 'style-loader'),
-                {
-                    loader: 'css-loader',
-                    options: {
-                        modules: true, //开启CSS Modules
-                        // importLoaders: 2 //作用是用于配置css-loader作用于 @import 的资源之前需要经过其他loader的个数
-                    }
-                },
-                'sass-loader'
-            ]
+            use: getScssModule(true)
         },
         {
             test: /\.less$/,
-            use: ['style-loader','css-loader',{
+            use: ['style-loader', 'css-loader', {
                 loader: 'less-loader',
                 options: {
                     javascriptEnabled: true
@@ -86,8 +52,8 @@ let modules = {
             }],
         },
         {
-            test:/\.(woff|svg|eot|ttf)$/,
-            use:[
+            test: /\.(woff|svg|eot|ttf)$/,
+            use: [
                 {
                     loader: 'url-loader',
                     options: {
@@ -98,18 +64,48 @@ let modules = {
             ]
         },
         {
-            test:/\.(jpg|png|jpeg)$/,
-            use:[
+            test: /\.(jpg|png|jpeg)$/,
+            use: [
                 {
                     loader: 'url-loader',
                     options: {
                         name: 'images/[name].[ext]',
-                        limit: 1
+                        limit: 1, //大小不超出时会打包为base64
                     }
                 }
             ]
         }
     ]
 };
+
+function getScssModule(cssModule) {
+    return [
+        (prod === 'production' ? {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+                publicPath: './../'
+            }
+        } : 'style-loader'),
+        {
+            loader: 'css-loader',
+            options: {
+                modules: cssModule || false, //开启CSS Modules
+                // importLoaders: 2 //作用是用于配置css-loader作用于 @import 的资源之前需要经过其他loader的个数
+            }
+        },
+        'sass-loader',
+        //注入全局scss变量文件，不需要每个文件一一引入
+        {
+            loader: 'sass-resources-loader',
+            options: {
+                // 多个文件时用数组的形式传入，单个文件时可以直接使用 path.resolve(__dirname, '../static/style/common.scss'
+                resources: [
+                    path.resolve(__dirname, '../src/style/' + 'varible.scss'),
+                    path.resolve(__dirname, '../src/style/' + 'mixin.scss'),
+                ]
+            }
+        }
+    ]
+}
 
 module.exports = modules;
