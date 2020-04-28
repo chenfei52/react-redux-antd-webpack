@@ -98,7 +98,6 @@ function getScssModule(cssModule) {
         {
             loader: 'sass-resources-loader',
             options: {
-                // 多个文件时用数组的形式传入，单个文件时可以直接使用 path.resolve(__dirname, '../static/style/common.scss'
                 resources: [
                     path.resolve(__dirname, '../src/style/' + 'varible.scss'),
                     path.resolve(__dirname, '../src/style/' + 'mixin.scss'),

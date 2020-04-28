@@ -1,16 +1,16 @@
 # 项目说明
 ------
-基于webpack4 使用 react + react-router快速搭建react项目
+基于webpack4 使用 react(hooks版本) + react-router快速搭建react项目
 
 ### 基本介绍
 
-##### 项目启动流程
+#### 项目启动流程
 >* npm install 下载项目所需依赖包
 >* npm run json 生成vendor.js 第三方包公用js
 >* npm start || npm run start 启动项目 启动成功后可在浏览器输入 localhost:3000访问
 >* npm run build 构建项目
 
-##### 配置文件
+#### 配置文件
 根目录webpack配置文件
 >* webpack.dll.config.js 用于分离第三方js
 >* webpack.config.js webpack配置文件
@@ -18,7 +18,7 @@
 
 区分生产环境和开发环境的配置在package.json的命令项配置中设置NODE_ENV变量的值，如果需要配置别的环境变量可在webpack配置文件中的DefinePlugin插件处设置。
 
-webpack.dll.config.js 中以下代码配置分离打包指定的js
+webpack.dll.config.js 中配置抽离出第三方包，优化打包速度
 ```javascript
 entry: {
         vendors: [
@@ -27,39 +27,29 @@ entry: {
     }
 ```
 
-##### 目录
-src为前端代码，其下的component存放组件，public下的所有文件在打包时都将拷贝到打包路径下同名文件夹中
+### 目录
+#### 1.src为主要的代码目录
+#### 2.src下的public目录可存放一些静态资源，已做配置打包后整个目录会拷贝到打包的根目录
+#### 3.src下的redux是基于react context实现的数据共享
+#### 4.src下的api是用于放接口调用相关代码和自定义hooks的
+#### 5.src下的style目录用于存放全局的变量文件和全局样式文件
 
-
-##### 项目基本配置
+#### 项目基本配置
 配置webpack配置入口文件的proxyMap可以批量设置接口代理
 
 
 ### webpack配置介绍
 
-##### 1.antd开启按需加载 在config目录下modules.js中修改如下代码
-```javascript
-{
-    test: /\.js$/,
-    exclude: /(node_modules|bower_components)/,
-    use: {
-        loader: 'babel-loader',
-        options: {
-            presets: ['react', 'env', 'stage-0'],
-            plugins: ['transform-decorators-legacy' , ["import", {libraryName: "antd", style: true}]]
-        }
-    }
-}
-```
+#### 1.antd开启按需加载 在config目录下modules.js中修改js的loader（项目默认未添加antd依赖）
 
-##### 2.css Modules
-######1.根据scss文件名称决定是否开启css module， 名称以 .module.scss结尾则开启
-######2.sass-resources-loader 用于配置全局的scss变量 增加scss变量文件时可修改
+#### 2.SCSS
+#####1.根据scss文件名称决定是否开启css module， 名称以 .module.scss结尾则开启
+#####2.sass-resources-loader 用于配置全局的scss变量文件
 
-##### 3.按需加载js
-使用React提供的Suspense组件
+#### 3.按需加载js
+使用react.lazy
 
-##### 4.eslint
+#### 4.eslint
 使用了eslint来检查代码，配置文件为根目录下.eslintrc,如想关闭请屏蔽module.js中的以下代码块
 ```javascript
 {
