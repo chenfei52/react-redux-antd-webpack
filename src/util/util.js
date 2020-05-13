@@ -1,5 +1,10 @@
-//格式化日期
-export function formatTime (time, character, degree) {
+/**
+ * 格式化日期格式
+ * @param time 支持时间戳 字符串
+ * @param formateStr YYYY-MM-DD hh:mm:ss
+ * @returns {string|*}
+ */
+export function formatTime (time, formateStr) {
     if(!time){
         return '';
     }
@@ -7,11 +12,8 @@ export function formatTime (time, character, degree) {
     if(!time.indexOf || time.indexOf('T') !== -1){
         time = new Date(time);
     }else{
+        //兼容os不支持YYYY-MM-DD格式
         time = new Date(time.replace(/-/g,'/'));
-    }
-
-    if (!character) {
-        character = '-'
     }
 
     function addZero(n) {
@@ -25,34 +27,15 @@ export function formatTime (time, character, degree) {
         day = addZero(time.getDate()),
         hour = addZero(time.getHours()),
         minute = addZero(time.getMinutes()),
-        seconds = addZero(time.getSeconds()),
-        result = '';
+        seconds = addZero(time.getSeconds());
 
-    result += year;
-    if (degree && degree === 'year') {
-        return result;
-    }
-    result += character + String(month);
-    if (degree && degree === 'month') {
-        return result;
-    }
-    result += character + String(day);
-    if (degree && degree === 'day') {
-        return result;
-    }
-    result += ' ' + String(hour);
-    if (degree && degree === 'hour') {
-        return result;
-    }
-    result += ':' + String(minute);
-    if (degree && degree === 'minute') {
-        return result;
-    }
-    result += ':' + String(seconds);
-    if (degree && degree === 'seconds') {
-        return result;
-    }
-    return result;
+    formateStr = formateStr.replace('YYYY', year);
+    formateStr = formateStr.replace('MM', month);
+    formateStr = formateStr.replace('DD', day);
+    formateStr = formateStr.replace('hh', hour);
+    formateStr = formateStr.replace('mm', minute);
+    formateStr = formateStr.replace('ss', seconds);
+    return formateStr;
 }
 
 /**
@@ -60,24 +43,10 @@ export function formatTime (time, character, degree) {
  * @param key 要获取的参数的名字 不传则直接返回整个参数对象
  * @returns {*}
  */
-export function getUrlParams( key ){
-    let params = {};
-    let url = location.href.split('?');
-    if(url.length > 1){
-        let par = url[1];
-        if(par.indexOf('#') > -1){
-            par = par.split('#')[0]
-        }
-        par = par.split('&');
-        par.forEach(function(val){
-            let _par = val.split('=');
-            params[_par[0]] = _par[1];
-        })
-    }
-    if(!key){
-        return params;
-    }
-    return params[key];
+export function getUrlParams(name){
+    let reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    let r = window.location.search.substr(1).match(reg);
+    if(r!=null)return decodeURI(r[2]); return null;
 }
 
 /**
@@ -114,6 +83,11 @@ export function IEVersion() {
     }
 }
 
+/**
+ * 深拷贝
+ * @param obj
+ * @returns {{}}
+ */
 export function deepCopy(obj){
     if(typeof obj !== 'object') console.log('请传入一个对象');
 
@@ -127,4 +101,42 @@ export function deepCopy(obj){
         }
     }
     return res;
+}
+
+
+/**
+ * 一维数组还原树状数据
+ * @param data 一维数组
+ * @param parentIdKey 标示父级的KEY
+ * @param idKey
+ * @returns {*[]}
+ */
+function getTreeData(data = [], parentIdKey, idKey) {
+    let tree = [];
+    let _data = [...data];
+    function getLeaf(){
+        let over = true;
+        _data.forEach(item=>{
+            if(!item.replace && item[parentIdKey] && (!_data.find(it=>(!it.replace && it[parentIdKey] === item[idKey]) ))){
+                over = false;
+                let index = _data.findIndex(it=>it[idKey] === item[parentIdKey]);
+                if(index > -1) {
+                    if(!_data[index].children)_data[index].children = [];
+                    _data[index].children.push({ ...item });
+                    item.replace = true;
+                }
+            }
+            if(item[parentIdKey] && !_data.find(it=>(it[idKey] === item[parentIdKey]) )){
+                item.replace = true;
+            }
+        });
+        return over;
+    }
+    let i = 0;//防止因为数据出错导致死循环
+    while (!getLeaf() && (i<100)){
+        i++;
+        getLeaf();
+    }
+    tree = _data.filter(item=>!item.replace);
+    return tree;
 }
