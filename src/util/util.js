@@ -1,6 +1,6 @@
 /**
  * 格式化日期格式
- * @param time 支持时间戳 字符串
+ * @param time 需要格式化的时间eg: Date 时间戳 String
  * @param formateStr YYYY-MM-DD hh:mm:ss
  * @returns {string|*}
  */
