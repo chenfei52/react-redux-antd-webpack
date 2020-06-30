@@ -11,7 +11,6 @@ const externals = require('./config/externals');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 let proxyMap = {
-    '/url': 'http://123.57.72.140:3001',
 }
 let proxy = {
 }
@@ -64,7 +63,7 @@ switch(process.env.NODE_ENV){
 
 module.exports = {
     devtool: 'source-map',
-    entry: ['babel-polyfill', './src/index.js'],
+    entry: ['./src/index.js'],
     output: {
         path: __dirname + paths.output,
         publicPath: paths.publicPath,

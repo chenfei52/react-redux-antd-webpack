@@ -17,8 +17,11 @@ let modules = {
                 {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['react', 'env', 'stage-0'],
-                        plugins: ['transform-decorators-legacy'] //支持@修饰符
+                        presets: ['@babel/react', '@babel/preset-env'],
+                        plugins: [
+                            ["@babel/plugin-proposal-decorators", { "legacy": true }],
+                            "@babel/plugin-proposal-export-default-from"
+                        ] //支持@修饰符
                         // plugins: [["import", {libraryName: "antd", style: true}]]  //antd的按需加载,antd不用cdn加速的情况下
                     }
                 },

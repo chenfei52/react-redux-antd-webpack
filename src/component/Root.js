@@ -16,7 +16,10 @@ export default function Root() {
         });
     }, []);
     return (
-        <HashRouter>
+        <HashRouter getUserConfirmation={(message, callback) => {
+            const allowTransition = window.confirm(message);
+            callback(allowTransition);
+        }} >
             <div>
                 <Header/>
 

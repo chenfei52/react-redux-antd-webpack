@@ -6,7 +6,7 @@ const path = require('path');
 const paths = require('./paths');
 
 const HtmlwebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin"); //抽离CSS
@@ -20,34 +20,24 @@ let plugins = [
     new HtmlwebpackPlugin({
         template: './src/index.html',
         inject: 'body',
-        filename:'index.html'
+        filename: 'index.html'
     }),
     new CleanWebpackPlugin(
-        ['./' + paths.vendorPath],
         {
-            "root": path.join(__dirname, '..'),     // 一个根的绝对路径. 不配置这个不能删除上级目录的文件
             "verbose": true,    // 将log写到 console.
             "dry": false,   // 不要删除任何东西，主要用于测试.
-            "exclude": ["manifest.json","vendors.js"] //排除不删除的目录
+            "exclude": ["manifest.json", "vendors.js"] //排除不删除的目录
         }
     ),
-    new CopyWebpackPlugin(
-        [
-            {
-                from:'./src/public/',
-                to:'public/' //存放静态资源
-            }
-        ],
-        {
-            context:'', //公共路径
-            ignore:[],
-            // copyUnmodified: true, //只复制修改过的
-            debug:'debug'
-        }
-    ),
+    new CopyWebpackPlugin({
+        patterns: [
+            {from: './src/public/', to: 'public/'},
+            {from: './dll/', to: ''},
+        ]
+    }),
     new webpack.DllReferencePlugin({
-        context: path.join(__dirname , './../'),
-        manifest: require( path.join('./../' + paths.vendorPath, 'manifest.json') )
+        context: path.join(__dirname, './../'),
+        manifest: require(path.join('./../' + paths.vendorPath, 'manifest.json'))
     }),
     new webpack.DefinePlugin({
         'process.env': {
@@ -56,9 +46,9 @@ let plugins = [
     })
 ];
 
-switch(process.env.NODE_ENV){
+switch (process.env.NODE_ENV) {
     case 'production':
-        // plugins.push(new BundleAnalyzerPlugin()); //分析打包结果 配置只可在本地开发构建时打开
+        // plugins.push(new BundleAnalyzerPlugin()); //分析打包结果
         break;
     default:
         plugins.push(new webpack.HotModuleReplacementPlugin());
