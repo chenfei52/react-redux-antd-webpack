@@ -17,6 +17,8 @@
         "autoprefixer": "^9.8.4",
         "babel-eslint": "^10.1.0",
         "babel-loader": "^8.1.0",
+        "babel-plugin-import": "^1.13.0",
+        "babel-polyfill": "^6.26.0",
         "clean-webpack-plugin": "^3.0.0",
         "copy-webpack-plugin": "^6.0.2",
         "cross-env": "^7.0.2",
@@ -39,13 +41,14 @@
         "webpack": "^4.43.0",
         "webpack-bundle-analyzer": "^3.8.0",
         "webpack-cli": "^3.3.12",
-        "webpack-dev-server": "^3.11.0"
+        "webpack-dev-server": "^3.11.0",
+        "whatwg-fetch": "^3.1.0"
     },
     "scripts": {
         "json": "webpack --config webpack.dll.config.js -p",
         "start": "node_modules/.bin/webpack-dev-server --mode development --open",
         "build": "cross-env NODE_ENV=production webpack --config webpack.config.js --mode production",
-        "analyz": "NODE_ENV=production npm_config_report=true npm run build"
+        "analyz": "cross-env NODE_ENV=production npm_config_report=true npm run build"
     },
     "browserslist": [
         "defaults",

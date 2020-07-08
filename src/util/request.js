@@ -62,7 +62,7 @@ export default function Req(options, success, error){
                 reject(new Error('接口响应超时！'))
             }, 20000)
         })
-    ]).then((res)=>{
+    ]).then(async (res)=>{
         hide && hide();
         if(res.status === 401 || res.status === 403){
             message.warning("用户无权限!");
@@ -70,18 +70,20 @@ export default function Req(options, success, error){
         if(options.blobData){
             return res.blob();
         }
-        if(!res.Status && !options.blobData){
-            message.warning(res.Message || '调用接口出错!');
+
+        let _res = await res.json();
+        if(!_res.Status && !options.blobData){
+            message.warning(_res.Message || '调用接口出错!');
         }else{
             if(success && typeof success === 'function'){
-                success && success(e);
+                success && success(_res);
             }
         }
-        return res.json();
+        return _res;
     }).catch(error=>{
         hide && hide();
         if(error && typeof error === 'function'){
-            error && error(e);
+            error && error(error);
         }
         console.log(error);
     });

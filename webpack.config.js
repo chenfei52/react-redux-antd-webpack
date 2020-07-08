@@ -62,8 +62,8 @@ switch(process.env.NODE_ENV){
 }
 
 module.exports = {
-    devtool: 'source-map',
-    entry: ['./src/index.js'],
+    devtool: process.env.NODE_ENV === 'production' ? undefined : 'source-map',
+    entry: ['babel-polyfill', 'whatwg-fetch', './src/index.js'],
     output: {
         path: __dirname + paths.output,
         publicPath: paths.publicPath,
