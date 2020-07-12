@@ -8,5 +8,5 @@ export Header from './Header';
 export Loading from './common/Loading';
 
 
-export const Router1 = lazy(() => import('./Router1'));
-export const Router2 = lazy(() => import('./Router2'));
+export const Router1 = lazy(() => import(/* webpackChunkName: "router1" */ './Router1'));
+export const Router2 = lazy(() => import(/* webpackChunkName: "router2" */ './Router2'));

@@ -42,7 +42,8 @@ let optimization = { //懒加载防止多次打包同一个模块
         cacheGroups: {
             vendors: {
                 test: /[\\/]node_modules[\\/]/,
-                priority: -10
+                priority: -10,
+                name: 'common'
             },
             default: {
                 minChunks: 2,

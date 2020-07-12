@@ -111,7 +111,7 @@ export function deepCopy(obj){
  * @param idKey
  * @returns {*[]}
  */
-function getTreeData(data = [], parentIdKey, idKey) {
+export function getTreeData(data = [], parentIdKey, idKey) {
     let tree = [];
     let _data = [...data];
     function getLeaf(){
@@ -139,4 +139,9 @@ function getTreeData(data = [], parentIdKey, idKey) {
     }
     tree = _data.filter(item=>!item.replace);
     return tree;
+}
+
+
+export function testBuild(){
+    console.log('this is test');
 }
