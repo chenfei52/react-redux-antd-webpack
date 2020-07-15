@@ -11,9 +11,9 @@ const externals = require('./config/externals');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 let proxyMap = {
-}
+};
 let proxy = {
-}
+};
 for(let key in proxyMap){
     proxy[key] = {
         target: proxyMap[key],
@@ -29,7 +29,7 @@ let devServer = {
     hot:true,
     historyApiFallback: true,  //本地开发路由请求指向index.html
     proxy
-}
+};
 
 let optimization = { //懒加载防止多次打包同一个模块
     splitChunks: {
@@ -52,7 +52,7 @@ let optimization = { //懒加载防止多次打包同一个模块
             }
         }
     }
-}
+};
 
 switch(process.env.NODE_ENV){
     case 'production':
