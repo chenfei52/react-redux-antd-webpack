@@ -85,19 +85,17 @@ export function IEVersion() {
 
 /**
  * 深拷贝
- * @param obj
- * @returns {{}}
+ * @param target
+ * @returns
  */
-export function deepCopy(obj){
-    if(typeof obj !== 'object') console.log('请传入一个对象');
-
-    let res = null;
-    obj instanceof Array ? res = [] : res={};
-    for(let key in obj){
-        if(typeof obj[key] === 'object'){
-            res[key] = deepCopy(obj[key]);
+function deepCopy(target){
+    if(typeof target !== 'object') return target;
+    let res = target instanceof Array ? [] : {};
+    for(let key in target){
+        if(typeof target[key] === 'object'){
+            res[key] = deepCopy(target[key]);
         }else{
-            res[key] = obj[key];
+            res[key] = target[key];
         }
     }
     return res;
