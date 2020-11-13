@@ -38,7 +38,7 @@ let optimization = { //懒加载防止多次打包同一个模块
         minChunks: 1,
         maxAsyncRequests: 5,
         maxInitialRequests: 3,
-        name: true,
+        name: 'common',
         cacheGroups: {
             vendors: {
                 test: /[\\/]node_modules[\\/]/,
@@ -64,7 +64,7 @@ switch(process.env.NODE_ENV){
 
 module.exports = {
     devtool: process.env.NODE_ENV === 'production' ? undefined : 'source-map',
-    entry: ['babel-polyfill', 'whatwg-fetch', './src/index.js'],
+    entry: ['babel-polyfill', './src/index.js'],
     output: {
         path: __dirname + paths.output,
         publicPath: paths.publicPath,

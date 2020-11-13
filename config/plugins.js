@@ -15,7 +15,6 @@ let plugins = [
     new MiniCssExtractPlugin({
         filename: 'css/[name].[hash:6].css',
         chunkFilename: 'css/[name].[hash:6].css',
-        allChunks: true  // 动态加载需要配置
     }),
     new HtmlwebpackPlugin({
         template: './src/index.html',

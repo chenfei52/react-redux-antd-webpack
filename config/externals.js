@@ -3,8 +3,8 @@
  */
     //过滤打包文件 cdn
 let externals = {
-    // 'react': 'React',
-    // 'react-dom': 'ReactDOM',
+    'react': 'React',
+    'react-dom': 'ReactDOM',
     // "antd": 'antd'
 };
 

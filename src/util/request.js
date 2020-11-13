@@ -80,11 +80,11 @@ export default function Req(options, success, error){
             }
         }
         return _res;
-    }).catch(error=>{
+    }).catch(err=>{
         hide && hide();
         if(error && typeof error === 'function'){
-            error && error(error);
+            error && error(err);
         }
-        console.log(error);
+        console.log(err);
     });
 }

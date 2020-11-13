@@ -138,8 +138,3 @@ export function getTreeData(data = [], parentIdKey, idKey) {
     tree = _data.filter(item=>!item.replace);
     return tree;
 }
-
-
-export function testBuild(){
-    console.log('this is test');
-}
