@@ -3,10 +3,10 @@
  */
 const path = require('path');
 const paths = require('./paths');
-
 const MiniCssExtractPlugin = require("mini-css-extract-plugin"); //抽离CSS
 
 let prod = process.env.NODE_ENV;
+
 
 let modules = {
     rules: [

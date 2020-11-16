@@ -8,7 +8,7 @@ const paths = require('./config/paths');
 const modules = require('./config/module');
 const plugins = require('./config/plugins');
 const externals = require('./config/externals');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const TerserPlugin = require('terser-webpack-plugin');
 
 let proxyMap = {
 };
@@ -51,7 +51,14 @@ let optimization = { //懒加载防止多次打包同一个模块
                 reuseExistingChunk: true
             }
         }
-    }
+    },
+    //webpack4 默认内置使用 terser-webpack-plugin 插件压缩优化代码，而该插件使用 terser 来缩小 JavaScript
+    //terser 使用多进程并行运行来提高构建速度
+    minimizer: [
+        new TerserPlugin({
+            parallel: true,
+        }),
+    ],
 };
 
 switch(process.env.NODE_ENV){

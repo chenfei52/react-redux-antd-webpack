@@ -10,7 +10,9 @@ module.exports = {
     entry: {
         vendors: [
             'react-router-dom',
-            'react-dom'
+            'redux',
+            'redux-thunk',
+            'reselect',
         ]
     },
 

@@ -10,8 +10,10 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin"); //抽离CSS
+const hardSourceWebpackPlugin = require('./hardSourceWebpack');
 
 let plugins = [
+    // hardSourceWebpackPlugin, //使用缓存提高构建速度
     new MiniCssExtractPlugin({
         filename: 'css/[name].[hash:6].css',
         chunkFilename: 'css/[name].[hash:6].css',
@@ -23,9 +25,9 @@ let plugins = [
     }),
     new CleanWebpackPlugin(
         {
-            "verbose": true,    // 将log写到 console.
-            "dry": false,   // 不要删除任何东西，主要用于测试.
-            "exclude": ["manifest.json", "vendors.js"] //排除不删除的目录
+            "verbose": true,
+            "dry": false,
+            "exclude": ["manifest.json", "vendors.js"]
         }
     ),
     new CopyWebpackPlugin({
@@ -40,14 +42,16 @@ let plugins = [
     }),
     new webpack.DefinePlugin({
         'process.env': {
-            //设置构建时的环境变量
+            //设置编译时的环境变量
         }
     })
 ];
 
 switch (process.env.NODE_ENV) {
     case 'production':
-        // plugins.push(new BundleAnalyzerPlugin()); //分析打包结果
+        if(process.env.npm_config_report){
+            plugins.push(new BundleAnalyzerPlugin()); //分析打包结果
+        }
         break;
     default:
         plugins.push(new webpack.HotModuleReplacementPlugin());

@@ -22,7 +22,7 @@ export default function Router1() {
     return (
         <div className={styles.test}>
             <Input onChange={e => setNumber(Number(e.target.value) || 0)}/>
-            {list.join(',')}
+            {list.join(',')}1
         </div>
     )
 }
