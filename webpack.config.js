@@ -76,7 +76,7 @@ switch(process.env.NODE_ENV){
 
 module.exports = {
     devtool: process.env.NODE_ENV === 'production' ? undefined : 'source-map',
-    entry: ['babel-polyfill', './src/index.js'],
+    entry: ['./src/index.js'],
     output: {
         path: __dirname + paths.output,
         publicPath: paths.publicPath,
