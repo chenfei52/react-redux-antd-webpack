@@ -1,45 +1,4 @@
 /**
- * 格式化日期格式
- * @param time 需要格式化的时间eg: Date 时间戳 String
- * @param formateStr YYYY-MM-DD hh:mm:ss
- * @returns {string|*}
- */
-export function formatTime(time, formateStr) {
-    if (!time) {
-        return '';
-    }
-
-    if (!time.indexOf || time.indexOf('T') !== -1) {
-        time = new Date(time);
-    } else {
-        //兼容os不支持YYYY-MM-DD格式
-        time = new Date(time.replace(/-/g, '/'));
-    }
-
-    function addZero(n) {
-        if (n < 10) {
-            return '0' + String(n);
-        }
-        return n;
-    }
-
-    let year = time.getFullYear(),
-        month = addZero(time.getMonth() + 1),
-        day = addZero(time.getDate()),
-        hour = addZero(time.getHours()),
-        minute = addZero(time.getMinutes()),
-        seconds = addZero(time.getSeconds());
-
-    formateStr = formateStr.replace('YYYY', year);
-    formateStr = formateStr.replace('MM', month);
-    formateStr = formateStr.replace('DD', day);
-    formateStr = formateStr.replace('hh', hour);
-    formateStr = formateStr.replace('mm', minute);
-    formateStr = formateStr.replace('ss', seconds);
-    return formateStr;
-}
-
-/**
  * 获取url上面的参数
  * @param key 要获取的参数的名字 不传则直接返回整个参数对象
  * @returns {*}

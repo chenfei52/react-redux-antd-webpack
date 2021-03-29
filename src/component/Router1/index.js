@@ -18,13 +18,12 @@ export default function Router1() {
     const [number, setNumber] = useState(0);
 
     const list = useSelector(state => getList(state, number));
-    Req()
 
 
     return (
         <div className={styles.test}>
             <Input onChange={e => setNumber(Number(e.target.value) || 0)}/>
-            {list.join(',')}1
+            {list.join(',')}
         </div>
     )
 }
