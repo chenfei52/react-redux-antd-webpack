@@ -56,7 +56,7 @@ export function formatTime(time, formateStr) {
  * ]
  */
 export function getMothDateList(dateObj, firstIsZero){
-    if(typeof dateObj !== 'object' || !dateObj.getTime) return [];
+    if (!(dateObj instanceof Date)) return [];
     const year = dateObj.getFullYear(),
           month = dateObj.getMonth() + 1,
           firstDay = new Date(dateObj.setDate(1)),
@@ -64,8 +64,8 @@ export function getMothDateList(dateObj, firstIsZero){
           lastDay = new Date(new Date(new Date(dateObj.setDate(1)).setMonth(month)).setDate(0)),
           lastWeek = lastDay.getDay();
 
-    let prevDay = firstWeek - (firstIsZero ? 0 : 1), //上月需要补的天数
-        nextDay = (7 - lastWeek) - (firstIsZero ? 1 : 0); //下月需要补的天数
+    let prevDay = (firstWeek ? firstWeek : 7) - (firstIsZero ? 0 : 1), //上月需要补的天数
+        nextDay = (7 - (lastWeek ? lastWeek : 7)) - (firstIsZero ? 1 : 0); //下月需要补的天数
 
     const result = [];
 
