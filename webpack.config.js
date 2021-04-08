@@ -41,6 +41,12 @@ let optimization = { //懒加载防止多次打包同一个模块
         maxInitialRequests: 3, //最大的初始化加载次数
         name: true,
         cacheGroups: { //缓存组 可以任意增加 满足任意条件即可 key值即为名字前缀
+            antd: {
+                test: /node_modules\\antd|node_modules\\@ant-design/,  //指定路径
+                priority: 30, //权重 同时满足时的优先级
+                name: "antd",
+                enforce: true
+            },
             vendors: {
                 test: /node_modules/,  //指定路径
                 priority: 20, //权重 同时满足时的优先级

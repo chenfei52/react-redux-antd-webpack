@@ -1,4 +1,5 @@
 import React from 'react';
+import { Input } from 'antd';
 import { withRouter } from "react-router-dom";
 import './index.scss';
 
@@ -7,6 +8,7 @@ function Router2(){
 
     return (
         <div className="color" >22222
+            <Input />
         </div>
     )
 }

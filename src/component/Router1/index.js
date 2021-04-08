@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {Input, Button} from 'antd';
 import {useSelector} from 'react-redux';
 import Req from '@src/util/request';
-import {createSelector} from 'reselect';
 import styles from './index.module.scss';
+import {createSelector} from "reselect";
 
 const getList = createSelector(
     [

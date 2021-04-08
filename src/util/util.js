@@ -132,3 +132,21 @@ export function groupByFirstLetter(arr) {
     });
     return result;
 }
+
+/**
+ * 数组的扁平化
+ * @param arr
+ * @returns {[]|*[]}
+ */
+export function flatten(arr){
+    if(!Array.isArray(arr)) return [];
+    let res = [];
+    arr.forEach(item=>{
+        if(Array.isArray(item)){
+            res = res.concat(flatten(item));
+        }else{
+            res.push(item);
+        }
+    })
+    return res;
+}

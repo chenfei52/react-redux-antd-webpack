@@ -61,7 +61,7 @@ export function getMothDateList(dateObj, firstIsZero){
           month = dateObj.getMonth() + 1,
           firstDay = new Date(dateObj.setDate(1)),
           firstWeek = firstDay.getDay(),
-          lastDay = new Date(new Date(new Date(dateObj.setDate(1)).setMonth(month)).setDate(0)),
+          lastDay = new Date(year, month, 0),
           lastWeek = lastDay.getDay();
 
     let prevDay = (firstWeek ? firstWeek : 7) - (firstIsZero ? 0 : 1), //上月需要补的天数
@@ -93,7 +93,7 @@ export function getMothDateList(dateObj, firstIsZero){
 
     let end = 1;
     while (end <= nextDay){
-        let _p = new Date(new Date(new Date(new Date(dateObj.setDate(1)).setMonth(month))).setDate(end));
+        let _p = new Date(year, month, end);
         result.push({
             day: _p.getDate(),
             date: formatTime(_p, 'YYYY-MM-DD'),
@@ -103,4 +103,14 @@ export function getMothDateList(dateObj, firstIsZero){
         end ++;
     }
     return result;
+}
+
+
+/**
+ * 获取指定月份的天数
+ * @param dateObj 日期对象
+ */
+export function getMonthDays(dateObj){
+    if (!(dateObj instanceof Date)) return 0;
+    return new Date(dateObj.getFullYear(), dateObj.getMonth() + 1, 0).getDate();
 }
