@@ -3,10 +3,10 @@ import React, { Suspense } from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { Header, Loading, Router1, Router2 } from './component';
-import styles from './../style/style.scss';
+import './../style/style.scss';
 
 export default function Root() {
-    const { userInfo } = useSelector(state=>state.global);
+    const { userInfo } = useSelector(state=>state.serverData);
 
     return (
             <HashRouter getUserConfirmation={(message, callback) => {
@@ -17,7 +17,7 @@ export default function Root() {
                     <Header/>
 
                     {
-                        <div className={styles.content}>
+                        <div className={"content"}>
                             <Suspense fallback={ <Loading /> }>
                                 <Route path="/" exact component={Router1}/>
                                 <Route path="/router1" component={Router1}/>

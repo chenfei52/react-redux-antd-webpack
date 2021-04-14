@@ -1,13 +1,12 @@
 const INIT_STATE = {
-    list: [1,2,3,4,5,6,7]
+    hideTopMenu: false
 };
 
-export default function global(initState=INIT_STATE, action){
+//用来存储一些用户交互状态
+export default function globalStatus(initState=INIT_STATE, action){
     switch(action.type){
-        case "UPDATE_USERINFO":
-            return { ...initState, userInfo: action.data }
-        case "UPDATE_LOADING":
-            return { ...initState, isLoading: action.data }
+        case "HIDE_TOP_MENU":
+            return { ...initState, hideTopMenu: action.data }
         default:
             return initState;
     }
